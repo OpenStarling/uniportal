@@ -1,0 +1,651 @@
+.comparison-page {
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.comparison-header {
+  text-align: center;
+  margin-bottom: 30px;
+  padding: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 16px;
+  color: white;
+}
+
+.comparison-header h1 {
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.comparison-header .subtitle {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.comparison-container {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+@media (max-width: 1024px) {
+  .comparison-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Левая панель - выбор университетов */
+.selection-panel {
+  background: white;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  height: fit-content;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.panel-header h3 {
+  color: #2c3e50;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.3rem;
+}
+
+.clear-btn {
+  background: #f44336;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.clear-btn:hover {
+  background: #d32f2f;
+  transform: translateY(-2px);
+}
+
+.selected-count {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding: 10px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.count-badge {
+  background: #3498db;
+  color: white;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.selected-list {
+  max-height: 400px;
+  overflow-y: auto;
+  margin-bottom: 25px;
+  padding-right: 10px;
+}
+
+.selected-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.selected-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.selected-list::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 3px;
+}
+
+.selected-list::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.empty-selection {
+  text-align: center;
+  padding: 40px 20px;
+  color: #95a5a6;
+}
+
+.empty-selection i {
+  font-size: 3rem;
+  margin-bottom: 15px;
+  opacity: 0.5;
+}
+
+.empty-selection p {
+  font-size: 1rem;
+}
+
+.selected-item {
+  display: flex;
+  align-items: center;
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  border: 2px solid #e0f2fe;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.selected-item:hover {
+  border-color: #3498db;
+  transform: translateX(5px);
+}
+
+.item-number {
+  background: #3498db;
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-right: 15px;
+  flex-shrink: 0;
+}
+
+.item-info {
+  flex: 1;
+}
+
+.item-info h4 {
+  font-size: 1rem;
+  margin-bottom: 5px;
+  color: #2c3e50;
+  line-height: 1.3;
+}
+
+.item-details {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.city-tag {
+  background: #e0f2fe;
+  color: #0369a1;
+  padding: 3px 10px;
+  border-radius: 15px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.rank-tag {
+  background: #fef3c7;
+  color: #92400e;
+  padding: 3px 10px;
+  border-radius: 15px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.remove-btn {
+  background: transparent;
+  border: none;
+  color: #95a5a6;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.remove-btn:hover {
+  background: #f44336;
+  color: white;
+  transform: rotate(90deg);
+}
+
+/* Топ университетов */
+.top-universities {
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 2px solid #f0f0f0;
+}
+
+.top-universities h4 {
+  color: #2c3e50;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.1rem;
+}
+
+.top-list {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.top-item {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  background: white;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.top-item:hover {
+  background: #f8f9fa;
+  border-color: #e0f2fe;
+  transform: translateX(5px);
+}
+
+.top-item.selected {
+  background: #e8f4ff;
+  border-color: #3498db;
+}
+
+.top-rank {
+  background: #6366f1;
+  color: white;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-right: 12px;
+  flex-shrink: 0;
+  font-size: 0.9rem;
+}
+
+.top-info {
+  flex: 1;
+}
+
+.top-info h5 {
+  font-size: 0.95rem;
+  margin-bottom: 3px;
+  color: #2c3e50;
+  line-height: 1.3;
+}
+
+.top-info p {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.top-action {
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #3498db;
+}
+
+.top-item.selected .top-action {
+  color: #10b981;
+}
+
+/* Правая панель - результаты сравнения */
+.comparison-results {
+  background: white;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #f0f0f0;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.results-header h3 {
+  color: #2c3e50;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.3rem;
+}
+
+.chart-tabs {
+  display: flex;
+  gap: 10px;
+}
+
+.chart-tab {
+  background: #f3f4f6;
+  border: 2px solid #e5e7eb;
+  border-radius: 25px;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.chart-tab:hover {
+  background: #e5e7eb;
+}
+
+.chart-tab.active {
+  background: #6366f1;
+  color: white;
+  border-color: #6366f1;
+}
+
+.no-comparison,
+.single-university {
+  text-align: center;
+  padding: 60px 20px;
+  color: #95a5a6;
+}
+
+.no-comparison i,
+.single-university i {
+  margin-bottom: 20px;
+  opacity: 0.5;
+}
+
+.no-comparison h4,
+.single-university h4 {
+  color: #4b5563;
+  margin-bottom: 10px;
+  font-size: 1.3rem;
+}
+
+.no-comparison p,
+.single-university p {
+  font-size: 1rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* Графики */
+.chart-container {
+  margin-bottom: 30px;
+}
+
+.chart-container h4 {
+  color: #2c3e50;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+}
+
+/* Таблица сравнения */
+.comparison-table {
+  margin-top: 30px;
+}
+
+.comparison-table h4 {
+  color: #2c3e50;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.table-container {
+  overflow-x: auto;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+}
+
+thead {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+th {
+  padding: 15px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+th:first-child {
+  border-top-left-radius: 10px;
+}
+
+th:last-child {
+  border-top-right-radius: 10px;
+}
+
+tbody tr:nth-child(even) {
+  background: #f9fafb;
+}
+
+tbody tr:hover {
+  background: #f3f4f6;
+}
+
+td {
+  padding: 15px;
+  border-bottom: 1px solid #e5e7eb;
+  color: #4b5563;
+}
+
+td:first-child {
+  font-weight: 500;
+  color: #2c3e50;
+}
+
+.has-rank {
+  color: #065f46;
+  font-weight: 500;
+}
+
+.no-rank {
+  color: #9ca3af;
+  font-style: italic;
+}
+
+.has-tour {
+  color: #065f46;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.no-tour {
+  color: #dc2626;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+td a {
+  color: #3b82f6;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 500;
+}
+
+td a:hover {
+  text-decoration: underline;
+}
+
+/* Статистика сравнения */
+.comparison-stats {
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  margin-top: 30px;
+}
+
+.comparison-stats h3 {
+  color: #2c3e50;
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.3rem;
+  text-align: center;
+  justify-content: center;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.stat-item {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  padding: 20px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  transition: all 0.3s ease;
+}
+
+.stat-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.stat-icon {
+  width: 50px;
+  height: 50px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: #6366f1;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.stat-info h4 {
+  font-size: 2rem;
+  color: #1e293b;
+  margin-bottom: 5px;
+  font-weight: 700;
+}
+
+.stat-info p {
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .comparison-page {
+    padding: 15px;
+  }
+  
+  .comparison-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .comparison-container {
+    gap: 20px;
+  }
+  
+  .panel-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .results-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .chart-tabs {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .comparison-header h1 {
+    font-size: 1.5rem;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .selected-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .item-number {
+    margin-right: 0;
+  }
+  
+  .remove-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+}
