@@ -3,6 +3,23 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsive
 import universityData from './unis.json';
 import './ComparisonPage.css';
 
+// Helper function to safely process ratings
+const processRating = (rating) => {
+  if (rating === null || rating === undefined || rating === '') {
+    return { clean: '', number: null, original: rating };
+  }
+  
+  const ratingStr = String(rating);
+  const clean = ratingStr.replace('#', '');
+  const number = parseInt(clean);
+  
+  return {
+    clean: !isNaN(number) ? clean : '',
+    number: !isNaN(number) ? number : null,
+    original: rating
+  };
+};
+
 const ComparisonPage = () => {
   const [selectedUniversities, setSelectedUniversities] = useState([]);
   const [allUniversities, setAllUniversities] = useState([]);
@@ -10,10 +27,13 @@ const ComparisonPage = () => {
   const [activeChart, setActiveChart] = useState('bar');
 
   useEffect(() => {
-    const formattedData = universityData.map(uni => ({
-      ...uni,
-      rankingNumber: uni.ratings ? parseInt(uni.ratings.replace('#', '')) || 0 : 0
-    }));
+    const formattedData = universityData.map(uni => {
+      const { number } = processRating(uni.ratings);
+      return {
+        ...uni,
+        rankingNumber: number !== null ? number : 0
+      };
+    });
     setAllUniversities(formattedData);
   }, []);
 
@@ -31,16 +51,25 @@ const ComparisonPage = () => {
     setSelectedUniversities([]);
   };
 
+  // Форматирование рейтинга для отображения
+  const formatRankingDisplay = (rating) => {
+    const { clean, number } = processRating(rating);
+    return number !== null ? `${clean} орны` : 'Рейтинг жоқ';
+  };
+
   // Подготовка данных для графиков
   useEffect(() => {
     if (selectedUniversities.length > 0) {
-      const data = selectedUniversities.map(uni => ({
-        name: uni.name,
-        Рейтинг: uni.rankingNumber,
-        Город: uni.city,
-        Программы: uni.academprograms?.length || 0,
-        "Есть 3D Тур": uni["3dtour"] && uni["3dtour"].trim() !== '' ? 1 : 0
-      }));
+      const data = selectedUniversities.map(uni => {
+        const { number } = processRating(uni.ratings);
+        return {
+          name: uni.name,
+          Рейтинг: number !== null ? number : 0,
+          Город: uni.city,
+          Программы: uni.academprograms?.length || 0,
+          "Есть 3D Тур": uni["3dtour"] && uni["3dtour"].trim() !== '' ? 1 : 0
+        };
+      });
       setComparisonData(data);
     } else {
       setComparisonData([]);
@@ -104,7 +133,7 @@ const ComparisonPage = () => {
                     <div className="item-details">
                       <span className="city-tag">{uni.city}</span>
                       <span className="rank-tag">
-                        <i className="fas fa-chart-line"></i> {uni.ratings || 'Рейтинг жоқ'}
+                        <i className="fas fa-chart-line"></i> {formatRankingDisplay(uni.ratings)}
                       </span>
                     </div>
                   </div>
@@ -248,11 +277,14 @@ const ComparisonPage = () => {
                       </tr>
                       <tr>
                         <td><strong>Рейтинг</strong></td>
-                        {selectedUniversities.map(uni => (
-                          <td key={uni.name} className={uni.rankingNumber > 0 ? 'has-rank' : 'no-rank'}>
-                            {uni.ratings || 'Рейтинг жоқ'}
-                          </td>
-                        ))}
+                        {selectedUniversities.map(uni => {
+                          const { number } = processRating(uni.ratings);
+                          return (
+                            <td key={uni.name} className={number !== null ? 'has-rank' : 'no-rank'}>
+                              {formatRankingDisplay(uni.ratings)}
+                            </td>
+                          );
+                        })}
                       </tr>
                       <tr>
                         <td><strong>Бағдарламалар саны</strong></td>
@@ -330,9 +362,12 @@ const ComparisonPage = () => {
                 <i className="fas fa-trophy"></i>
               </div>
               <div className="stat-info">
-                <h4>{selectedUniversities.reduce((min, uni) => 
-                  Math.min(min, uni.rankingNumber || 9999), 9999
-                )}</h4>
+                <h4>{
+                  selectedUniversities.reduce((min, uni) => {
+                    const { number } = processRating(uni.ratings);
+                    return Math.min(min, number !== null ? number : 9999);
+                  }, 9999)
+                }</h4>
                 <p>Ең жоғары рейтинг (орны)</p>
               </div>
             </div>
